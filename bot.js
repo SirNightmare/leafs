@@ -2,7 +2,7 @@
 
 const Discord = require('discord.js');
 const Music = require("discord.js-musicbot-addon")
-var settings = require("./settings.json")
+
 
 class Bot extends Discord.Client {
   constructor(options) {
