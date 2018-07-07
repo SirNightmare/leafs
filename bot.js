@@ -13,6 +13,7 @@ let queue = {};
 
 const commands =  {
 	'play': (msg) => {
+		    if(message.author.bot) return;
 		if (queue[msg.guild.id] === undefined) return msg.channel.sendMessage(`:musical_note: | **Add some songs to the queue first with ${tokens.prefix}add**`);
 		if (!msg.guild.voiceConnection) return commands.join(msg).then(() => commands.play(msg));
 		if (queue[msg.guild.id].playing) return msg.channel.sendMessage(`:musical_note: | **Already Playing**`);
@@ -39,6 +40,7 @@ const commands =  {
 			dispatcher = msg.guild.voiceConnection.playStream(yt(song.url, { audioonly: true }), { passes : tokens.passes });
 			let collector = msg.channel.createCollector(m => m);
 			collector.on('message', m => {
+				    if(message.author.bot) return;
 				if (m.content.startsWith(tokens.prefix + 'pause')) {
 					msg.channel.sendMessage(':pause_button: | **Paused**').then(() => {dispatcher.pause();});
 				} else if (m.content.startsWith(tokens.prefix + 'resume')){
@@ -70,6 +72,7 @@ const commands =  {
 		})(queue[msg.guild.id].songs.shift());
 	},
 	'join': (msg) => {
+		    if(message.author.bot) return;
 		return new Promise((resolve, reject) => {
 			const voiceChannel = msg.member.voiceChannel;
 			if (!voiceChannel || voiceChannel.type !== 'voice') return msg.reply(':musical_note: | I couldn\'t connect to your voice channel...');
@@ -77,6 +80,7 @@ const commands =  {
 		});
 	},
 		'add': (msg) => {
+			    if(message.author.bot) return;
 			let messsageArray = msg.content.split(" ");
 			let command = messsageArray[0];
 			let args = messsageArray.slice(1);
@@ -109,15 +113,18 @@ const commands =  {
 			});
 	},
 	'queue': (msg) => {
+		    if(message.author.bot) return;
 		if (queue[msg.guild.id] === undefined) return msg.channel.sendMessage(`Add some songs to the queue first with ${tokens.prefix}add`);
 		let tosend = [];
 		queue[msg.guild.id].songs.forEach((song, i) => { tosend.push(`${i+1}. ${song.title} - Requested by: ${song.requester}`);});
 		msg.channel.sendMessage(`__**${msg.guild.name}'s Music Queue:**__ Currently **${tosend.length}** songs queued ${(tosend.length > 15 ? '*[Only next 15 shown]*' : '')}\n\`\`\`${tosend.slice(0,15).join('\n')}\`\`\``);
 	},
 	'reboot': (msg) => {
+		    if(message.author.bot) return;
 		if (msg.author.id == tokens.adminID) process.exit(); //Requires a node module like Forever to work.
 	},
 	'search': (msg) => {
+		    if(message.author.bot) return;
 		let messsageArray = msg.content.split(" ");
 		let command = messsageArray[0];
 		let args = messsageArray.slice(1);
