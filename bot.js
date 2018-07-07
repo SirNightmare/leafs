@@ -43,4 +43,4 @@ Music.start(client, {
     embedColor: 0x5DD500,
 });
 
-client.login("NDU1MTAxNzQzNzQ3ODI1Njk0.DiJ1tw.xArwfjHlqksx--ytXvm4cKAWdtI");
+client.login(process.env.BOT_TOKEN);
