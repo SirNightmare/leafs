@@ -34,7 +34,7 @@ const commands =  {
 			.setTitle(`Playing ${song.title}`)
 			.addField("Requested by:", song.requester)
 			.setTimestamp()
-			.setColor(0x00FF59)
+			.setColor("RANDOM")
 			msg.channel.sendEmbed(Embed)
 			dispatcher = msg.guild.voiceConnection.playStream(yt(song.url, { audioonly: true }), { passes : tokens.passes });
 			let collector = msg.channel.createCollector(m => m);
@@ -104,7 +104,7 @@ const commands =  {
 					.addField("By:", info.author.name)
 					.addField("Requested by:", msg.author.username)
 					.setThumbnail(info.thumbnail_url)
-					.setColor(0x00FF59)
+					.setColor("RANDOM")
 					msg.channel.sendEmbed(Embed)
 				});
 			  });
@@ -137,7 +137,7 @@ const commands =  {
 				queue[msg.guild.id].songs.push({url: result.url, title: info.title, requester: msg.author.username});
 				let embed = new Discord.RichEmbed()
 				.setAuthor(" | Searched", client.user.displayAvatarURL)
-				.setColor(0x00FF59)
+				.setColor("RANDOM")
 				.setTimestamp()
 				.setImage(result.thumbnails.high.url)
 				.setTitle("Top Result | Added to the queue")
