@@ -136,19 +136,18 @@ const commands =  {
 				if (!queue.hasOwnProperty(msg.guild.id)) queue[msg.guild.id] = {}, queue[msg.guild.id].playing = false, queue[msg.guild.id].songs = [];
 				queue[msg.guild.id].songs.push({url: result.url, title: info.title, requester: msg.author.username});
 				let embed = new Discord.RichEmbed()
-				.setAuthor(" | Searched", client.user.displayAvatarURL)
+				.setAuthor(` | Searched ${args.join(" ")}`, client.user.displayAvatarURL)
 				.setColor(0x47d147)
 				.setTimestamp()
-				.setImage(result.thumbnails.high.url)
-				.setTitle("Top Result | Added to the queue")
-				.addField(result.title)
+				.setThumbnail(result.thumbnails.high.url)
+				.setTitle(`Added ${result.title} to the queue`)
+				.addField("Description:", result.description)
+				.addField("Channel name:", result.channelTitle)
 				.setFooter(`Requested by ${msg.author.username}`)
 				msg.channel.sendEmbed(embed)
 			});
 		  });
-	},
-
-
+	}
 };
 
 client.on('ready', () => {
@@ -159,4 +158,4 @@ client.on('message', msg => {
 	if (!msg.content.startsWith(tokens.prefix)) return;
 	if (commands.hasOwnProperty(msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0])) commands[msg.content.toLowerCase().slice(tokens.prefix.length).split(' ')[0]](msg);
 });
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.BOT_TOKEN)
